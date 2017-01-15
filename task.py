@@ -19,7 +19,7 @@ class Task:
         try:
             webbrowser.get(self.__getChromeUrl()).open(self.__mirror_url)
             print ("start magic mirror")
-            tSensor= sensor.TemperatureSensor()
+            tSensor= sensor.TemperatureSensor(4)
             tSensor.start()
         except Exception, e:
             print (Exception, ":", e)
