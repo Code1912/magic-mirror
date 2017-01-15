@@ -154,17 +154,23 @@ class TemperatureSensor(Sensor):
                         for i in range(0, array_len - 100 - 1):
                             self.readData.pop(i)
                     average = self.__get_average(10)
+                    if(average is None):
+                        self.mutex.release()
+                        self.readData.append(DHT11Data(temperature, humidity))
+                        continue
+
                     valid_rang = 0.3
                     temp_valid = average.temperature * (1 - valid_rang) < temperature < average.temperature * (1 + valid_rang)
                     wet_valid = average.wet * (1 - valid_rang) < humidity < average.wet * (1 + valid_rang)
-                    if average is None or (temp_valid and wet_valid):
+                    if temp_valid and wet_valid:
                         self.readData.append(DHT11Data(temperature, humidity))
                     self.mutex.release()
                     # else:
                     # print("wrong")
                     # print("temperature : ", temperature, ", humidity : ", humidity, " check : ", check, " tmp : ", tmp)
             except Exception as e:
-                print("---- calculate error----")
+                print("---- calculate error----",e)
+                continue
 
     def __del__(self):
         self.__deled = True

@@ -12,9 +12,9 @@ if __name__ == '__main__':
     while True:
         time.sleep(1)
         item = s.dht11_data;
-        if(item.temperature==-1):
+        if item is None:
             continue
-        print("temperature:", item.temperature, "wet :", item.wet,"---------")
+        print("temperature:", item.temperature, "wet :", item.wet, "---------")
         i += 1
         # s.trigger()
         # print("{} {} {} {:3.2f} {} {} {} {}".format(
