@@ -1,0 +1,1 @@
+XCOPY D:\Project\magic-mirror\*.py \\192.168.0.180\share\pi\magic-mirror /y
