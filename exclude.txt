@@ -1,0 +1,7 @@
+D:\Project\magic-mirror\.idea\magic-mirror.iml
+D:\Project\magic-mirror\.idea\misc.xml
+D:\Project\magic-mirror\.idea\modules.xml
+D:\Project\magic-mirror\.idea\vcs.xml
+D:\Project\magic-mirror\.idea\workspace.xml
+D:\Project\magic-mirror\.idea\inspectionProfiles\profiles_settings.xml
+D:\Project\magic-mirror\static\js\jquery.min.js

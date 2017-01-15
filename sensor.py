@@ -62,6 +62,7 @@ class TemperatureSensor(Sensor):
             j += 1
 
         self.collectDataQueue.put(data)
+        gpio.cleanup()
 
     def start(self):
         # open device
