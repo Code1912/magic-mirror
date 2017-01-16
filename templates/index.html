@@ -3,12 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Magic Mirror</title>
+    <link rel="stylesheet" href="/static/css/base.css?[[r]]" type="text/css">
 </head>
-<body>
-{{ city }}
+<body ng-app="mirror">
+<div ng-controller="appCtrl">
+
+    <span class="time" ng-bind="date">    </span>
+    <br/>
+    <span class="time" ng-bind="time">    </span>
+
+</div>
+
 </body>
 <script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/angular.min.js"></script>
+<script src="/static/js/moment.js"></script>
 <script>
+    var app = angular.module('mirror', []);
+    app.controller("appCtrl", function ($scope, $timeout, $interval,$http) {
 
+        $scope.date = moment().format('YYYY年MM月DD日  ');
+        $scope.time = moment().format('HH:MM:ss');
+        var refreshTime = function () {
+            $scope.date = moment().format('YYYY年MM月DD日  ');
+            $scope.time = moment().format('HH:MM:ss');
+        };510100
+        var refreshWeather=function () {
+           $http.get("http://apis.baidu.com/apistore/weatherservice/recentweathers?cityname=成都&cityid=101270101",{
+              headers:{"apikey":"329f1a4b88eb176c4afe88abb913cb7c"}
+           }).success(function (data) {
+               console.log(data)
+           })
+        };
+        refreshWeather();
+        $interval(refreshTime, 900);
+        $interval(refreshWeather, 1000*60*20);
+    })
 </script>
 </html>
