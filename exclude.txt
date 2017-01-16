@@ -5,3 +5,7 @@ D:\Project\magic-mirror\.idea\vcs.xml
 D:\Project\magic-mirror\.idea\workspace.xml
 D:\Project\magic-mirror\.idea\inspectionProfiles\profiles_settings.xml
 D:\Project\magic-mirror\static\js\jquery.min.js
+D:\Project\magic-mirror\test.pyc
+D:\Project\magic-mirror\sensor.pyc
+D:\Project\magic-mirror\task.pyc
+

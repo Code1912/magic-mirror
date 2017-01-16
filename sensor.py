@@ -5,14 +5,36 @@ import threading
 import RPi.GPIO as gpio;
 import Queue
 import datetime
-
+import sys
+import signal
+import RPi;
 
 class Sensor:
+    __registered = False
+
     def __init__(self):
         return
 
+    @staticmethod
+    def setup():
+        gpio.setwarnings(False)
+        gpio.setmode(gpio.BCM)
+        if not Sensor.__registered:
+            signal.signal(signal.SIGINT, Sensor.handler)
+        Sensor.__registered = True
+        sleep(1)
 
-# pigpio is board mode
+    @staticmethod
+    def handler(signal_num, frame):
+        print("\nPressed CTRL+C")
+        gpio.cleanup()
+        sys.exit(signal_num)
+
+    @staticmethod
+    def cancel():
+        gpio.cleanup()
+
+
 class TemperatureSensor(Sensor):
     def __init__(self, pin_num=4):
         self.pin_num = pin_num
@@ -23,8 +45,7 @@ class TemperatureSensor(Sensor):
         self.__deled = False
 
     def __collect_data(self):
-        gpio.setwarnings(False)
-        gpio.setmode(gpio.BCM)
+
         sleep(1)
         gpio.setup(self.pin_num, gpio.OUT)
 
@@ -62,7 +83,6 @@ class TemperatureSensor(Sensor):
             j += 1
 
         self.collectDataQueue.put(data)
-        gpio.cleanup()
 
     def start(self):
         # open device
@@ -101,6 +121,10 @@ class TemperatureSensor(Sensor):
         temp /= calculate_count
         wet /= calculate_count
         return DHT11Data(temp, wet)
+
+    def __del__(self):
+
+        return
 
     @property
     def dht11_data(self):
@@ -203,3 +227,24 @@ class DHT11Data:
         if not isinstance(value, int):
             raise ValueError('wet must be an integer!')
         self._wet = value
+
+
+class Relay(Sensor):
+    def __init__(self, pin_num=18):
+        self.pin_num = pin_num
+        gpio.setup(self.pin_num, gpio.OUT,initial=gpio.HIGH)
+        self.close()
+        return
+
+    def open(self):
+        gpio.setup(self.pin_num, gpio.LOW)
+        sleep(0.02)
+        return
+
+    def close(self):
+        gpio.setup(self.pin_num, gpio.HIGH)
+        sleep(0.02)
+        return
+
+    def __del__(self):
+        return
