@@ -93,8 +93,8 @@ body, textarea, input, button, select, keygen, legend {
 /* layout */
 body {
 
-    background: #333;
-    padding: 20px;
+    background: #000;
+    padding: 30px;
 }
 
 a, a:hover {

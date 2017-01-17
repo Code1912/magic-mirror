@@ -1,8 +1,6 @@
 import webbrowser
 import threading
 import platform
-import time
-import sensor
 
 
 class Task:
@@ -18,17 +16,18 @@ class Task:
         # time.sleep(3)
         try:
             webbrowser.get(self.__getChromeUrl()).open(self.__mirror_url)
-            print ("start magic mirror")
-            tSensor= sensor.TemperatureSensor(4)
-            tSensor.start()
-        except Exception, e:
-            print (Exception, ":", e)
+            print("start magic mirror")
+            # tSensor= sensor.TemperatureSensor(4)
+            # tSensor.start()
+        except Exception as e:
+            print(Exception, ":", e)
 
     def __getChromeUrl(self):
         sysStr = platform.system()
-        print sysStr
+        print(sysStr)
+        ##--kiosk
         if (sysStr == "Windows"):
-            return "C:/Users/Code1912/AppData/Local/Google/Chrome/Application/chrome.exe --kiosk %s"
+            return "C:/Users/Code1912/AppData/Local/Google/Chrome/Application/chrome.exe  %s"
         else:
             # return "/opt/google/chrome"
-            return " /usr/bin/chromium-browser --kiosk %s";
+            return " /usr/bin/chromium-browser   %s";

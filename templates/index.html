@@ -11,33 +11,25 @@
     <span class="time" ng-bind="date">    </span>
     <br/>
     <span class="time" ng-bind="time">    </span>
-
+    <audio controls autoplay></audio>
+    <fieldset>
+        <legend>RECORD AUDIO</legend>
+        <input style="background: black"  ng-click="startSpeech()" type="button" value="start recording"/>
+        <input style="background: black"   ng-click="endSpeech()"  type="button" value="stop recording and play"/>
+    </fieldset>
 </div>
 
 </body>
 <script src="/static/js/jquery.min.js"></script>
 <script src="/static/js/angular.min.js"></script>
 <script src="/static/js/moment.js"></script>
-<script>
-    var app = angular.module('mirror', []);
-    app.controller("appCtrl", function ($scope, $timeout, $interval,$http) {
+<script src="/static/js/mirror.js?[[r]]"></script>
+<script src="/static/js/recorderjs/recorder.js?[[r]]"></script>
+<script src="/static/js/voiceMonitor.js?[[r]]"></script>
 
-        $scope.date = moment().format('YYYY年MM月DD日  ');
-        $scope.time = moment().format('HH:MM:ss');
-        var refreshTime = function () {
-            $scope.date = moment().format('YYYY年MM月DD日  ');
-            $scope.time = moment().format('HH:MM:ss');
-        };510100
-        var refreshWeather=function () {
-           $http.get("http://apis.baidu.com/apistore/weatherservice/recentweathers?cityname=成都&cityid=101270101",{
-              headers:{"apikey":"329f1a4b88eb176c4afe88abb913cb7c"}
-           }).success(function (data) {
-               console.log(data)
-           })
-        };
-        refreshWeather();
-        $interval(refreshTime, 900);
-        $interval(refreshWeather, 1000*60*20);
-    })
+<script>
+
+
+
 </script>
 </html>
