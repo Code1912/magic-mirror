@@ -27,7 +27,9 @@ class Voice2Text:
         return jsonData.get("access_token", "")
 
     @staticmethod
-    def get_text(token=None, size=0, base64str=""):
+    def get_text(token=None, buffer=bytes):
+        size=len(buffer)
+        base64str=base64.b64encode(buffer).decode()
         if token is None:
             return {"err_msg": "get token error"}
         http = Http()
@@ -39,7 +41,8 @@ class Voice2Text:
             "token": token,
             "cuid": "B8-27-EB-87-BE-F0",
             "len": size,
-            "speech": base64str
+            "speech": base64str,
+            "lan":"zh"
         }
         headers = {'Content-type': 'audio/wav;rate='+str(SAMPLING_RATE),}
         response, content = http.request(url, "POST", headers=headers, body=json.dumps(body))
@@ -48,11 +51,11 @@ class Voice2Text:
         return jsonData
 
     @staticmethod
-    def voice2text(size=0, base64str=""):
+    def voice2text(buffer=bytes):
         token = Voice2Text.get_token()
         result = {"err_msg": "get token error"}
         try:
-            result = Voice2Text.get_text(token, size, base64str)
+            result = Voice2Text.get_text(token,buffer)
         except Exception as e:
             print(e)
         return result
@@ -118,9 +121,8 @@ class VoiceRecorder:
 
         buffer= VoiceRecorder.startSpeech()
         #buffer=open("test.pcm",'r').read()
-        base64Str=base64.b64encode(buffer).decode()
-        #print(buffer)
-        print(base64Str)
 
-        result=Voice2Text.voice2text(len(buffer),base64Str)
+        #print(buffer)
+
+        result=Voice2Text.voice2text(buffer)
         print(result)
