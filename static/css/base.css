@@ -85,7 +85,7 @@ a, a:hover {
 }
 
 body, textarea, input, button, select, keygen, legend {
-    font: 12px/1.14 arial, \5b8b\4f53;
+    font: 20px/1.14 arial, \5b8b\4f53;
     color: #fff;
     outline: 0;
 }
@@ -93,13 +93,47 @@ body, textarea, input, button, select, keygen, legend {
 /* layout */
 body {
 
-    background: #000;
+    background: rgba(28, 28, 28, 0.9);
     padding: 30px;
 }
 
 a, a:hover {
     color: #fff;
 }
+.time-container{
+    width: 50%;
+    float: left;
+}
+.weather-container{
+    width: 50%;
+    float: left;
+
+}
+.weather-container .temperature{
+    font-size: 120px;
+
+}
+.weather-container .c{
+    font-weight: 700;
+    margin-top: 17px;
+}
+.weather-container .text{
+    font-size: 30px;
+    margin-top: 70px;
+
+}
+.pull-right{
+    float: right;
+}
+.pull-left{
+    float: left;
+}
 .time{
     font-size: 50px;
+}
+.weather-box li{
+     padding-left: 20px; line-height: 40px;
+}
+.weather-box {
+   display: inline-table;
 }

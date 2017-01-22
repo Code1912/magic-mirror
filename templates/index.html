@@ -3,32 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Magic Mirror</title>
-    <link rel="stylesheet" href="/static/css/base.css?[[r]]" type="text/css">
+    <link rel="stylesheet" href="../static/css/base.css?[[r]]" type="text/css">
 </head>
 <body ng-app="mirror">
 <div ng-controller="appCtrl">
+    <div class="time-container" ng-controller="timeCtrl">
+        <div><span class="time" ng-bind="date">    </span></div>
+        <br/>
+        <div><span class="time" ng-bind="time">    </span></div>
+    </div>
+    <div class="weather-container" ng-controller="weatherCtrl">
 
-    <span class="time" ng-bind="date">    </span>
-    <br/>
-    <span class="time" ng-bind="time">    </span>
-    <audio controls autoplay></audio>
-    <fieldset>
-        <legend>RECORD AUDIO</legend>
-        <input style="background: black"  ng-click="startSpeech()" type="button" value="start recording"/>
-        <input style="background: black"   ng-click="endSpeech()"  type="button" value="stop recording and play"/>
-    </fieldset>
+        <div style="float: right">
+            <div class="pull-right">
+                <img src="../static/image/xinzhi/30.png"
+                     ng-src="../static/image/xinzhi/{{ weather.code }}.png">
+            </div>
+            <div class=" text pull-right">
+                <span ng-bind="weather.text"></span>
+            </div>
+            <div class="c pull-right">
+                <span>°</span>
+            </div>
+            <div class="temperature pull-right">
+                <span ng-bind="weather.temperature"></span>
+            </div>
+        </div>
+        <div style="  width: 100%; float: right">
+            <ul class="pull-right">
+                <li ng-repeat="item in weatherList">
+                    <ul style="width: 100%" class="weather-box">
+                        <li class="pull-left">
+                            <span ng-bind="item.date"></span>
+                        </li>
+                        <li class="pull-left" style="min-width: 110px">
+                            <img style="height: 40px;width: 40px; float: left" src="../static/image/xinzhi/30.png"
+                                 ng-src="../static/image/xinzhi/{{ item.code_day }}.png">
+                            <div  class="pull-left"  >
+                                &nbsp; &nbsp;
+                                <span ng-bind="item.text_day"></span>
+                            </div>
+                        </li>
+                        <li class="pull-left">
+                            <span ng-bind="item.low"></span>°&nbsp;/
+                            <span ng-bind="item.high"></span>°
+                        </li>
+                        <li class="pull-left">
+                            <span ng-bind="item.wind_direction"></span>风
+
+                        </li>
+                        <li class="pull-left">
+                            <span ng-bind="item.wind_scale"></span>级
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
 </div>
 
 </body>
-<script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/angular.min.js"></script>
-<script src="/static/js/moment.js"></script>
-<script src="/static/js/mirror.js?[[r]]"></script>
-<script src="/static/js/recorderjs/recorder.js?[[r]]"></script>
-<script src="/static/js/voiceMonitor.js?[[r]]"></script>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/angular.min.js"></script>
+<script src="../static/js/moment.js"></script>
+<script src="../static/js/mirror.js?[[r]]"></script>
+<script src="../static/js/recorderjs/recorder.js?[[r]]"></script>
+<script src="../static/js/voiceMonitor.js?[[r]]"></script>
 
 <script>
-
 
 
 </script>

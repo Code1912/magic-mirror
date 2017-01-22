@@ -8,7 +8,7 @@ import base64
 from pyaudio import PyAudio, paInt16
 import encodings
 import sys
-
+import numpy as np
 class Voice2Text:
     voiceAPIKEY = "UqGiNk3ymn2boGNmAnFgKXRL"
     voiceSecretKey = "320a87ae33e9ec36fe090423646a11b0"
@@ -66,15 +66,14 @@ SAMPLING_RATE = 16000
 CHANNELS = 1
 SAVE_LENGTH = 2
 # record time
-TIME = 10
+TIME = 8
 
-
+LEVEL=1500
 class VoiceRecorder:
-    __isWorking = False
     __voiceBuffer = bytearray()
 
     @staticmethod
-    def startSpeech():
+    def start():
         if (VoiceRecorder.__isWorking):
             return
         VoiceRecorder.__isWorking = True
@@ -87,11 +86,13 @@ class VoiceRecorder:
         save_buffer = []
 
         count = 0
-        while count < TIME * 2:
+        while count < TIME * 3:
             # read NUM_SAMPLES sampling data
             audioBytes = stream.read(NUM_SAMPLES)
-
+            audio_data = np.fromstring(audioBytes, dtype=np.short)
+            large_sample_count = np.sum(audio_data > LEVEL)
             save_buffer.append(audioBytes)
+
             count += 1
             print("---")
         VoiceRecorder.__isWorking = False
@@ -118,11 +119,6 @@ class VoiceRecorder:
 
     @staticmethod
     def get_voiceText():
-
-        buffer= VoiceRecorder.startSpeech()
-        #buffer=open("test.pcm",'r').read()
-
-        #print(buffer)
-
+        buffer= VoiceRecorder.start_speech()
         result=Voice2Text.voice2text(buffer)
         print(result)
